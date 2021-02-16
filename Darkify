@@ -1,0 +1,193 @@
+#!/bin/bash
+# Author: Jeremiah Jones <j.miahjones@gmail.com>
+# Date: Feb 2021
+# Description: This takes a .rstheme file that does not change the windowing theme of rstudio
+#   and appends theme information to make the window appear dark, consistent with 
+#   the themeing of Adwaita dark. Thanks to aldomann/rstudio-adwaita-dark-theme for
+#   exhibiting this in the DarkulaAdwaita rstheme!
+# Usage: darkify.sh /path/to/undark-file /path/for/new-dark-file
+
+if [ $# -eq 0 ]; then
+	echo 'Usage: darkify.sh /path/to/undark-file /path/for/new-dark-file'
+	exit 1
+fi
+
+undarktheme="$1"
+darktheme="$2"
+
+cp $undarktheme $darktheme
+
+echo '
+/* background */
+ .rstudio-themes-flat .rstudio-themes-dark-grey, .rstudio-themes-flat .rstudio-themes-dark-grey .rstudio-themes-background {
+    background: #333333 !important;
+}
+
+/* inactive tabs */
+table.rstheme_tabLayoutCenter, .rstudio-themes-flat .rstudio-themes-dark-grey .gwt-TabLayoutPanelTabs, .rstheme_multiPodUtilityTabArea {
+    background: #282828 !important;
+ }
+
+.rstudio-themes-flat .rstudio-themes-dark-grey .rstheme_center {
+    background: rgb(53, 53, 53) !important;
+}
+
+/* toolbar and selected tab */
+
+.rstudio-themes-flat .rstudio-themes-dark-grey .gwt-TabLayoutPanelTabs .gwt-TabLayoutPanelTab-selected table.rstheme_tabLayoutCenter, .rstheme_toolbarWrapper {
+    background: rgb(53, 53, 53) !important;
+}
+
+/* spliters */
+.rstudio-themes-flat .rstudio-themes-dark-grey .gwt-SplitLayoutPanel-HDragger, .rstudio-themes-flat .rstudio-themes-dark-grey .gwt-SplitLayoutPanel-VDragger {
+    background: transparent !important;
+}
+
+/* search */
+.rstudio-themes-flat .rstudio-themes-dark .search, .rstudio-themes-flat.rstudio-themes-dark-menus .search {
+    background: rgb(53, 53, 53) !important;
+    border-color: rgb(40,40,40);
+}
+
+/* pane toolbars */
+
+.rstheme_secondaryToolbar, .rstudio-themes-flat .rstudio-themes-dark-grey .dataGridHeader {
+    background: rgb(53, 53, 53) !important;
+}
+
+/* menu background */
+.popupMiddleCenter, .menuPopupMiddleCenter {
+    background: rgb(53, 53, 53) !important;
+}
+
+/* RStudio scrollbars */
+.rstudio-themes-flat .rstudio-themes-dark-grey .gwt-TabLayoutPanelTabs, .rstudio-themes-flat .rstudio-themes-dark-grey .rstheme_minimizedWindowObject .rstheme_center, .rstudio-themes-flat .rstudio-themes-dark.rstudio-themes-scrollbars ::-webkit-scrollbar-track, .rstudio-themes-flat .rstudio-themes-dark.rstudio-themes-scrollbars ::-webkit-scrollbar-corner, .rstudio-themes-flat .rstudio-themes-dark.rstudio-themes-scrollbars::-webkit-scrollbar-track, .rstudio-themes-flat .rstudio-themes-dark.rstudio-themes-scrollbars::-webkit-scrollbar-corner, .rstudio-themes-flat.rstudio-themes-dark-menus .rstudio-themes-scrollbars ::-webkit-scrollbar-track, .rstudio-themes-flat.rstudio-themes-dark-menus .rstudio-themes-scrollbars ::-webkit-scrollbar-corner {
+    background: rgb(40, 40, 40);
+}
+
+.rstudio-themes-flat .rstudio-themes-dark.rstudio-themes-scrollbars ::-webkit-scrollbar-thumb, .rstudio-themes-flat .rstudio-themes-dark.rstudio-themes-scrollbars::-webkit-scrollbar-thumb, .rstudio-themes-flat.rstudio-themes-dark-menus .rstudio-themes-scrollbars ::-webkit-scrollbar-thumb {
+    border: solid 3px rgb(40, 40, 40);
+}
+
+.rstudio-themes-flat .rstudio-themes-dark.rstudio-themes-scrollbars ::-webkit-scrollbar-thumb, .rstudio-themes-flat .rstudio-themes-dark.rstudio-themes-scrollbars::-webkit-scrollbar-thumb, .rstudio-themes-flat.rstudio-themes-dark-menus .rstudio-themes-scrollbars ::-webkit-scrollbar-thumb {
+    background: rgb(53, 53, 53);
+    -webkit-border-radius: 10px;
+}
+
+.rstudio-themes-flat.rstudio-themes-dark.rstudio-themes-scrollbars::-webkit-scrollbar-track, .rstudio-themes-flat.rstudio-themes-dark.rstudio-themes-scrollbars ::-webkit-scrollbar-track, .rstudio-themes-flat.rstudio-themes-dark.rstudio-themes-scrollbars::-webkit-scrollbar-corner, .rstudio-themes-flat.rstudio-themes-dark.rstudio-themes-scrollbars ::-webkit-scrollbar-corner {
+    background: rgb(40, 40, 40);
+}
+
+.rstudio-themes-flat.rstudio-themes-dark.rstudio-themes-scrollbars::-webkit-scrollbar-thumb, .rstudio-themes-flat.rstudio-themes-dark.rstudio-themes-scrollbars ::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    background: rgb(53, 53, 53);
+    border: solid 3px rgb(40, 40, 40);
+}
+
+.rstudio-themes-flat .rstudio-themes-dark.rstudio-themes-scrollbars ::-webkit-scrollbar-thumb, .rstudio-themes-flat .rstudio-themes-dark.rstudio-themes-scrollbars::-webkit-scrollbar-thumb, .rstudio-themes-flat.rstudio-themes-dark-menus .rstudio-themes-scrollbars ::-webkit-scrollbar-thumb {
+    background: rgb(40, 40, 40);
+    background-image: initial;
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-repeat-x: initial;
+    background-repeat-y: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: rgb(40, 40, 40);
+    -webkit-border-radius: 10px;
+}
+
+/* Data viewer */
+.rstudio-themes-flat.rstudio-themes-dark-grey #rsGridData_info, .rstudio-themes-flat.rstudio-themes-dark-grey th, .rstudio-themes-flat.rstudio-themes-dark-grey td.first-child, .rstudio-themes-flat.rstudio-themes-dark-grey table.dataTable thead th {
+    background-color: rgb(53, 53, 53);
+}
+
+.rstudio-themes-flat.rstudio-themes-dark-grey #rsGridData_info, .rstudio-themes-flat.rstudio-themes-dark-grey table.dataTable thead th, .rstudio-themes-flat.rstudio-themes-dark-grey table.dataTable thead td, .rstudio-themes-flat.rstudio-themes-dark-grey table.dataTable tbody td {
+    border-color: rgb(27, 27, 27);
+    border-top-color: rgb(27, 27, 27);
+    border-right-color: rgb(27, 27, 27);
+    border-bottom-color: rgb(27, 27, 27);
+    border-left-color: rgb(27, 27, 27);
+}
+
+.rstudio-themes-flat .rstudio-themes-dark.rstudio-themes-scrollbars ::-webkit-scrollbar-thumb, .rstudio-themes-flat .rstudio-themes-dark.rstudio-themes-scrollbars::-webkit-scrollbar-thumb, .rstudio-themes-flat.rstudio-themes-dark-menus .rstudio-themes-scrollbars ::-webkit-scrollbar-thumb {
+    background: rgb(60, 60, 60);
+    background-image: initial;
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-repeat-x: initial;
+    background-repeat-y: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: rgb(60, 60, 60);
+    -webkit-border-radius: 10px;
+}
+
+.rstudio-themes-flat.rstudio-themes-dark-grey .colFilter, .rstudio-themes-flat.rstudio-themes-dark-grey .numValueBox {
+    border-color: rgb(40, 40, 40);
+    background: rgb(80, 80, 80);
+}
+
+.rstudio-themes-flat.rstudio-themes-dark-grey .textFilterBox {
+    background: rgb(80, 80, 80);
+    color: #FFF;
+}
+
+.rstudio-themes-dark-menus .filterPopup {
+    background: rgb(53, 53, 53);
+    border: solid 1px rgb(40, 40, 40);
+}
+
+.rstudio-themes-flat.editor_dark .histBack.selected {
+    background-color: rgb(100, 100, 100);
+}
+
+.rstudio-themes-flat.editor_dark .searchMatch {
+    background-color: rgb(127, 127, 127);
+}
+
+/* File tabs */
+.rstudio-themes-flat .rstudio-themes-dark-grey .GD15MCFCCS {
+    background: linear-gradient(to right, rgba(60, 60, 60, 0), rgb(60, 60, 60) 13%);
+}
+
+/* RStudio borders*/
+.rstudio-themes-flat .rstudio-themes-dark-grey .rstudio-themes-border, .rstudio-themes-flat .rstudio-themes-dark-grey table.GD15MCFCOQ>tbody>tr>td, .rstudio-themes-flat .rstudio-themes-dark-grey .GD15MCFCKV>div:last-child, .rstudio-themes-flat .rstudio-themes-dark-grey .rstheme_secondaryToolbar, .rstudio-themes-flat .rstudio-themes-dark-grey .gwt-TabLayoutPanel>div>div.gwt-TabLayoutPanelTabs {
+    border-color: rgb(27, 27, 27);
+    border-top-color: rgb(27, 27, 27);
+    border-right-color: rgb(27, 27, 27);
+    border-bottom-color: rgb(27, 27, 27);
+    border-left-color: rgb(27, 27, 27);
+}
+
+.rstudio-themes-flat .rstudio-themes-dark-grey .rstheme_minimizedWindowObject>div:last-child, .rstudio-themes-flat .rstudio-themes-dark-grey .rstheme_toolbarWrapper, .rstudio-themes-flat .rstudio-themes-dark-grey .GD15MCFCKV.GD15MCFCPO div.GD15MCFCMO .GD15MCFCIS, .rstudio-themes-flat .rstudio-themes-dark-grey .GD15MCFCKV.GD15MCFCPO {
+    border-color: rgb(27, 27, 27);
+    border-top-color: rgb(27, 27, 27);
+    border-right-color: rgb(27, 27, 27);
+    border-bottom-color: rgb(27, 27, 27);
+    border-left-color: rgb(27, 27, 27);
+}
+
+.rstudio-themes-flat.rstudio-themes-dark-menus .menuPopupMiddleCenter, .rstudio-themes-flat.rstudio-themes-dark-menus .themedPopupPanel .popupMiddleCenter, .rstudio-themes-flat.rstudio-themes-dark-menus .gwt-SuggestBoxPopup .suggestPopupMiddleCenter {
+    background: rgb(60, 60, 60);
+    border: solid 1px rgb(27, 27, 27);
+    color: #f0f0f0;
+}
+
+.rstudio-themes-flat.rstudio-themes-dark-menus .gwt-MenuItemSeparator .menuSeparatorInner {
+    border-color: rgb(27, 27, 27);
+}
+
+/* Fonts */
+.rstudio-themes-flat.editor_dark .ace_editor_theme .GD15MCFCGI {
+    color: rgb(247, 247, 247);
+}
+
+.rstudio-themes-flat .rstudio-themes-dark .breadcrumb table.GD15MCFCJJ a {
+    color: rgb(247, 247, 247);
+}' >> $darktheme
+

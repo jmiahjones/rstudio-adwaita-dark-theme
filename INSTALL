@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo cp rstudio-gnome-dark.qss /usr/lib/rstudio/resources/stylesheets/rstudio-gnome-dark.qss
+sudo cp qss/rstudio-gnome-dark.qss /usr/lib/rstudio/resources/stylesheets/rstudio-gnome-dark.qss
